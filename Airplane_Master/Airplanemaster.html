@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+    <title>airplane</title>
+    <style type="text/css">
+    *{ 
+        margin: 0;
+        padding: 0;
+    }
+
+        #background {
+            background-color: grey;
+        }
+
+        #ocean {
+            background-image: url(spacemap.jpeg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 900px;
+            height: 700px;
+            position: absolute;
+            left: 275px;
+            top: 60px;
+        }
+
+        .player {
+            background-image: url(player2.png);
+            background-size: contain;
+            width: 70px;
+            height: 75px;
+            display: inline-block;
+            position: absolute;
+            background-repeat: no-repeat;
+        }
+
+        .enemy {
+            background-image: url(enemy1.png);
+            background-size: contain;
+            width: 70px;
+            height: 75px;
+            display: inline-block;
+            position: absolute;
+        }
+
+        .missile {
+            background-color: purple;
+            width: 2px;
+            height:10px;
+            position: absolute;
+        }
+
+    </style>
+</head>
+
+<body id="background">
+<div id="ocean">
+    <div id="players"></div>
+    <div id="enemies"></div>
+    <div id="missiles"></div>
+<script type="text/javascript">
+
+var player = {
+    left: 420,
+    top: 500
+}
+
+var enemies = [
+    {left: 420, top: 200},
+    {left: 520, top: 150},
+    {left: 320, top: 150},
+    {left: 220, top: 100},
+    {left: 620, top: 100}
+]
+
+var missiles = []
+
+function drawPlayer(){ // creates the player
+    playerContent = "<div class='player' style = 'left: "+player.left+"px; top: "+player.top+"px'></div>";
+    document.getElementById('players').innerHTML=playerContent;
+}
+
+function drawMissile(){ // creates missiles
+    missileContent = ""
+    console.log(missiles);
+    for(var idx=0;idx<missiles.length; idx++){
+        missileContent+="<div class='missile' style = 'left:"+missiles[idx].left+"px; top:"+missiles[idx].top+"px'></div>"
+    }
+    document.getElementById('missiles').innerHTML=missileContent;
+}
+
+function drawEnemies(){ // creates enemies
+    var enemyContent = "";
+    for(var idx = 0; idx < enemies.length; idx++){
+        enemyContent += "<div class='enemy' style = 'left: "+enemies[idx].left+"px; top: "+enemies[idx].top+"px'></div>";
+    }
+    document.getElementById('enemies').innerHTML=enemyContent;
+}
+
+function moveEnemies(){
+    for(var idx=0;idx<enemies.length;idx++){
+        enemies[idx].top = enemies[idx].top + 10;
+    }
+}
+
+function moveMissiles(){
+    for(var idx=0; idx<missiles.length;idx++){
+        missiles[idx].top = missiles[idx].top - 25;
+    }
+}
+
+function gameLoop(){ // adds a timer to an automatic command
+    moveEnemies();
+    drawEnemies();
+    moveMissiles();
+    drawMissile();
+    setTimeout(gameLoop, 100);
+}
+gameLoop();
+
+function updateGame(){ // calls functions to update game
+    drawPlayer();
+    drawEnemies();
+}
+updateGame();
+
+
+document.onkeydown = function(e){
+    if(e.keyCode == 37 && player.left > 0){ // left
+        player.left -= 10;
+    }if(e.keyCode == 39 && player.left < 840){ // right
+        player.left += 10; 
+    }if(e.keyCode == 38 && player.top > 467){ // up
+        player.top -= 10;
+    }if(e.keyCode == 40 && player.top <600){ // down
+        player.top += 10;
+    }if(e.keyCode == 32){ // fire missile
+        missiles.push({left: (player.left+27), top: (player.top)})
+        drawMissile();
+    }
+    updateGame();
+}
+
+</script>
+</body>
+</html>
+
+<!--
+Build divisions for the ocean, players and enemies. (COMPLETE)
+Style the ocean. (COMPLETE)
+Create player object to hold it's position. (COMPLETE)
+Create enemies array, and objects for positions.(COMPLETE)
+Create drawPlayer function to draw players. (COMPLETE)
+Create drawEnemies function to draw enemies. (COMPLETE)
+Create onkeydown trigger to move left and right.(COMPLETE)
+
+-------------------------------------------------------------------------------------------------------------
+
+(basic) Add feature: Move player up and down. (COMPLETE)
+(basic) Add more enemies (add 4 more on the ocean). (COMPLETE)
+(intermediate) Change Background (different colors or your own images). (COMPLETE)
+(intermediate) Change Enemy plane (your own images). (COMPLETE)
+(intermediate) Change Hero plane (your own images). (COMPLETE)
+(advanced) Modify feature: Limit player's up/down range to about 1/3rd of the bottom of the screen. (COMPLETE)
+
+--------------------------------------------------------------------------------------------------------------
+
+Add a game loop function. (COMPLETE)
+Create moveEnemies function - to move enemies down every gameLoop cycle. (COMPLETE)
+Build a division to hold player missles (COMPLETE)
+Make our hero shoot missisles. (COMPLETE)
+Move enemies (COMPLETE)
+Move missiles (COMPLETE)
+
+--------------------------------------------------------------------------------------------------------------
+
+(basic) Change the color of the missiles. (COMPLETE)
+(intermediate) Make enemies move faster. (COMPLETE)
+(intermediate) Make the missiles move faster. (COMPLETE)
+(advanced) Make the game look smoother (hint: game loop speed) (COMPLETE)
+
+--------------------------------------------------------------------------------------------------------------
+
+
+if missle is greater than xpos and ypos, 
+
+NOTES FOR SELF
+In order to add variables into a division via text/js -> html, must add "+variable/object/etc.+"
+
+document.onkeydown = function(e){ // used to find keys associated with arrow buttons
+    console.log(e);
+}
+
+http://millionthvector.blogspot.com/p/free-sprites.html images for planes
+
+-->

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<script id="text/javascript">
+
+var world = [
+        [],
+        [],
+        [],   
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ]
+    for(var row = 0; row<=8; row++){
+        for(var column = 0; column <= 14; column++){
+            world[row].push(Math.floor((Math.random() * 4)));
+        }
+    }
+    console.log(world);
+
+/*
+function genWorld(){
+    var min = 0;
+    var max = 3;
+    var random = Math.floor((Math.random() * 4));
+    var world = [
+        [],
+        [],
+        [],   
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ]
+    for(var row = 0; row<=8; row++){
+        for(var column = 0; column <= 14; column++){
+            world[row].push(Math.floor((Math.random() * 4)));
+        }
+    }
+    return world;
+}
+*/
+
+</script>
+
+</html>
